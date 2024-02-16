@@ -3,6 +3,7 @@ package br.com.benefrancis.domain.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "TB_SABOR")
 public class Sabor {
 
     @Id
@@ -13,6 +14,9 @@ public class Sabor {
     private String nome;
 
     private String descricao;
+
+    public Sabor(){
+    }
 
     public Sabor(Long id, String nome, String descricao) {
         this.id = id;
