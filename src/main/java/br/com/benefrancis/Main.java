@@ -26,7 +26,6 @@ public class Main {
         var manjericao = new Sabor( null, "Manjericao", "Deliciosa pizza de manjericão que fora plantado pelos mais renomados agricultores do Brasil" );
         var frangoComCatupiri = new Sabor( null, "Frango com Catupiri", "O verdadeiro sabor do Catupiri Original faz toda a diferença nesta pizza" );
 
-        Pizzaria pizzaria = new Pizzaria( null, "Dominus" );
 
         var bordaDeCatupiri = Opcional.builder()
                 .nome( "Borda de Catupiri" )
@@ -67,16 +66,24 @@ public class Main {
                 .opcionais( opcionaisDaSegundaPizza )
                 .build();
 
+
+        var cardapio = new LinkedHashSet<Produto>();
+        cardapio.add( pizzaDeFrangoComCatupiri );
+        cardapio.add( pizzaDeManjericao );
+
+
+        // Pizzaria pizzaria = new Pizzaria( null, "Dominus", cardapio );
+        Pizzaria dominus = Pizzaria.builder().nome( "Dominus" ).cardapio( cardapio ).build();
+
+        Pizzaria nona = Pizzaria.builder().nome( "Nona Pizzaria LTDA" ).cardapio( cardapio ).build();
+
         manager.getTransaction().begin();
-        manager.persist( pizzaria );
-        manager.persist( pizzaDeFrangoComCatupiri );
-        manager.persist( pizzaDeManjericao );
+        manager.persist( dominus );
+        manager.persist( nona );
         manager.getTransaction().commit();
 
-
-        System.out.println( "PIZZARIA: " + pizzaria );
-        System.out.println( "PIZZA:  " + pizzaDeManjericao );
-        System.out.println( "PIZZA:  " + pizzaDeFrangoComCatupiri );
+        System.out.println( "PIZZARIA: " + dominus );
+        System.out.println( "PIZZARIA: " + nona );
 
         manager.close();
         factory.close();
