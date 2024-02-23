@@ -67,7 +67,6 @@ public class Main {
                 .opcionais( opcionaisDaSegundaPizza )
                 .build();
 
-
         manager.getTransaction().begin();
         manager.persist( pizzaria );
         manager.persist( pizzaDeFrangoComCatupiri );
