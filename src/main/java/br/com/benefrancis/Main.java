@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -23,6 +24,27 @@ public class Main {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory( db );
         EntityManager manager = factory.createEntityManager();
 
+//        Long id = Long.valueOf(JOptionPane.showInputDialog("Informe o id da Pizzaria: "));
+//
+//        Pizzaria pizzaria = getPizzaria (id, manager);
+//
+//        System.out.println(pizzaria);
+
+        // Consultando todas as pizzarias
+        var jpql = "From Pizzaria";
+
+        manager.createQuery(jpql).getResultList().forEach(System.out::println);
+
+        manager.close();
+        factory.close();
+    }
+
+    private static Pizzaria getPizzaria(Long id, EntityManager manager) {
+        Pizzaria pizzaria = manager.find(Pizzaria.class, id);
+        return pizzaria;
+    }
+
+    private static void persistir(EntityManager manager) {
         var manjericao = new Sabor( null, "Manjericao", "Deliciosa pizza de manjericão que fora plantado pelos mais renomados agricultores do Brasil" );
         var frangoComCatupiri = new Sabor( null, "Frango com Catupiri", "O verdadeiro sabor do Catupiri Original faz toda a diferença nesta pizza" );
 
@@ -84,8 +106,5 @@ public class Main {
 
         System.out.println( "PIZZARIA: " + dominus );
         System.out.println( "PIZZARIA: " + nona );
-
-        manager.close();
-        factory.close();
     }
 }

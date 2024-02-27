@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -19,10 +20,15 @@ public class Pizzaria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_PIZZARIA")
-    @SequenceGenerator(name = "SQ_PIZZARIA")
+    @SequenceGenerator(name = "SQ_PIZZARIA",
+            sequenceName = "SQ_PIZZARIA",
+            initialValue = 1,
+            allocationSize = 1
+    )
     @Column(name = "ID_PIZZARIA")
     private Long id;
 
+    @Column(name = "NM_PIZZARIA")
     private String nome;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
